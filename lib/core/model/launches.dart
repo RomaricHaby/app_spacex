@@ -13,7 +13,7 @@ class Launches {
   String? details;
   String? launchpad;
   String? name;
-  String? dateLocal;
+  DateTime? dateLocal;
   bool? upcoming;
   String? id;
 

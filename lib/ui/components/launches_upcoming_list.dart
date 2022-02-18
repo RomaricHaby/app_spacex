@@ -1,5 +1,7 @@
 import 'package:app_spacex/core/model/launches.dart';
+import 'package:app_spacex/ui/launch_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'image_placeholder.dart';
 
@@ -15,7 +17,7 @@ class LaunchesUpcomingList extends StatelessWidget{
           Launches launche = launches[position];
           return InkWell(
             onTap: () async{
-
+              await Navigator.of(context).pushNamed(LaunchDetail.route, arguments: LaunchDetailArguments(launch: launche));
             },
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -45,7 +47,9 @@ class LaunchesUpcomingList extends StatelessWidget{
                     const SizedBox(
                       height: 8,
                     ),
-                    Text("Date de lancement : ${launche.dateLocal ?? 'Inconnue'}")
+
+
+                    Text("Date de lancement : \n${DateFormat.yMMMEd().format(launche.dateLocal!)}")
                   ],
                 ),
                 ),

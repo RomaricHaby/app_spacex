@@ -1,4 +1,6 @@
+import 'package:app_spacex/core/model/launches.dart';
 import 'package:app_spacex/ui/home.dart';
+import 'package:app_spacex/ui/launch_detail.dart';
 import 'package:flutter/material.dart';
 
 
@@ -29,11 +31,11 @@ class App extends StatelessWidget {
       ),
       onGenerateRoute: (RouteSettings settings) {
         var arguments = settings.arguments;
-       /* switch (settings.name) {
-          case SpotDetail.route:
-            if (arguments != null && arguments is SpotDetailArguments) {
-              Spot spot = arguments.spot;
-              return MaterialPageRoute(builder: (_) => SpotDetail(spot));
+        switch (settings.name) {
+          case LaunchDetail.route:
+            if (arguments != null && arguments is LaunchDetailArguments) {
+              Launches launch = arguments.launch;
+              return MaterialPageRoute(builder: (_) => LaunchDetail(launch));
             } else {
               throw Exception(
                   "Cette route doit avoir un objet SpotDetailArgument en argument");
@@ -41,7 +43,7 @@ class App extends StatelessWidget {
 
           default:
             return unknownRoute();
-        }*/
+        }
       },
       home: const HomePage(title: 'Space X'),
     );

@@ -20,7 +20,8 @@ Launches _$LaunchesFromJson(Map<String, dynamic> json) => $checkedCreate(
           details: $checkedConvert('details', (v) => v as String?),
           launchpad: $checkedConvert('launchpad', (v) => v as String?),
           name: $checkedConvert('name', (v) => v as String?),
-          dateLocal: $checkedConvert('date_local', (v) => v as String?),
+          dateLocal: $checkedConvert('date_local',
+              (v) => v == null ? null : DateTime.parse(v as String)),
           upcoming: $checkedConvert('upcoming', (v) => v as bool?),
           id: $checkedConvert('id', (v) => v as String?),
         );
@@ -36,7 +37,7 @@ Map<String, dynamic> _$LaunchesToJson(Launches instance) => <String, dynamic>{
       'details': instance.details,
       'launchpad': instance.launchpad,
       'name': instance.name,
-      'date_local': instance.dateLocal,
+      'date_local': instance.dateLocal?.toIso8601String(),
       'upcoming': instance.upcoming,
       'id': instance.id,
     };

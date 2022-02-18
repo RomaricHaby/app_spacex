@@ -1,6 +1,8 @@
 import 'package:app_spacex/core/manager/launches_manager.dart';
+import 'package:app_spacex/ui/launch_detail.dart';
 import 'package:app_spacex/ui/pages/launches_upcoming_list_page.dart';
 import 'package:flutter/material.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key, required this.title}) : super(key: key);
@@ -23,7 +25,7 @@ class HomePage extends StatefulWidget {
 
 
 class _HomePageState extends State<HomePage> {
-
+  int _currentIndex = 0;
   final PageController _pageController = PageController();
 
   @override
@@ -49,8 +51,23 @@ class _HomePageState extends State<HomePage> {
                 activeIcon: Icon(
                   Icons.favorite,
                   color: Colors.blue,
+                )),
+            BottomNavigationBarItem(
+                label: "SpaceX",
+                icon: Icon(Icons.house_outlined),
+                activeIcon: Icon(
+                  Icons.house,
+                  color: Colors.blue,
                 ))
           ],
+          currentIndex: _currentIndex,
+          onTap: (newIndex) {
+            setState(() {
+              _currentIndex = newIndex;
+            });
+            _pageController.animateToPage(_currentIndex,
+                duration: kThemeAnimationDuration, curve: Curves.ease);
+          },
         ),
         body: FutureBuilder(
           future: LaunchesManger().loadLaunchesUpcoming(),
