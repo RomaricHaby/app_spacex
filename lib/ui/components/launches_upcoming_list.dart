@@ -1,15 +1,12 @@
-
-
-
 import 'package:app_spacex/core/model/launches.dart';
 import 'package:flutter/material.dart';
 
 import 'image_placeholder.dart';
 
-class UpcomingList extends StatelessWidget{
+class LaunchesUpcomingList extends StatelessWidget{
   final List<Launches> launches;
 
-  const UpcomingList({Key? key, required this.launches}) : super(key: key);
+  const LaunchesUpcomingList({Key? key, required this.launches}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +45,7 @@ class UpcomingList extends StatelessWidget{
                     const SizedBox(
                       height: 8,
                     ),
-                    Text("Catégorie : ${launche.rocket ?? 'Inconnue'}")
+                    Text("Date de lancement : ${launche.dateLocal ?? 'Inconnue'}")
                   ],
                 ),
                 ),
@@ -65,7 +62,6 @@ class UpcomingList extends StatelessWidget{
               ],
             )
           );
-
     },
       itemCount: launches.length,
     ) : const Center(child: Text("Aucun lancements"),);

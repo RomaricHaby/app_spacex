@@ -14,17 +14,19 @@ class LaunchesManger{
 
   LaunchesManger._internal();
 
-  int get _spotListLength => _launches?.length ?? 0;
+  //int get _spotListLength => _launches?.length ?? 0;
 
-  Future<void> loadLaunchesUpcoming() async {
+  Future<List<Launches>?> loadLaunchesUpcoming() async {
     try{
       var response = await ApiManager().getAllUpcomingLaunches();
 
       if(response.data != null){
         _launches = List<dynamic>.from(response.data!).map((json) => Launches.fromJson(json)).toList();
       }
+      return _launches;
     } catch(e){
       debugPrint("Erreur : $e");
+      return null;
     }
   }
 }
