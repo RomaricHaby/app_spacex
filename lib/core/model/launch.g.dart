@@ -1,16 +1,16 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'launches.dart';
+part of 'launch.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Launches _$LaunchesFromJson(Map<String, dynamic> json) => $checkedCreate(
-      'Launches',
+Launch _$LaunchFromJson(Map<String, dynamic> json) => $checkedCreate(
+      'Launch',
       json,
       ($checkedConvert) {
-        final val = Launches(
+        final val = Launch(
           links: $checkedConvert(
               'links',
               (v) =>
@@ -30,7 +30,7 @@ Launches _$LaunchesFromJson(Map<String, dynamic> json) => $checkedCreate(
       fieldKeyMap: const {'dateLocal': 'date_local'},
     );
 
-Map<String, dynamic> _$LaunchesToJson(Launches instance) => <String, dynamic>{
+Map<String, dynamic> _$LaunchToJson(Launch instance) => <String, dynamic>{
       'links': instance.links?.toJson(),
       'rocket': instance.rocket,
       'success': instance.success,

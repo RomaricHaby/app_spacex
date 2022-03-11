@@ -1,4 +1,5 @@
-import 'package:app_spacex/core/model/launches.dart';
+import 'package:app_spacex/core/manager/launches_manager.dart';
+import 'package:app_spacex/core/model/launch.dart';
 import 'package:app_spacex/ui/launch_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -6,19 +7,28 @@ import 'package:intl/intl.dart';
 import 'image_placeholder.dart';
 
 class LaunchesUpcomingList extends StatelessWidget{
-  final List<Launches> launches;
+  final List<Launch> launches;
+  final Function(Launch, bool)? onFavoriteChanged;
 
-  const LaunchesUpcomingList({Key? key, required this.launches}) : super(key: key);
+  const LaunchesUpcomingList({Key? key, required this.launches, this.onFavoriteChanged}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return launches.isNotEmpty ? ListView.builder(
         itemBuilder: (context, position) {
-          Launches launche = launches[position];
+          Launch launch = launches[position];
           return InkWell(
             onTap: () async{
-              await Navigator.of(context).pushNamed(LaunchDetail.route, arguments: LaunchDetailArguments(launch: launche));
-            },
+              bool oldFavorite = launch.isFav;
+
+              var newFavorite = await Navigator.of(context).pushNamed(LaunchDetail.route,
+                  arguments: LaunchDetailArguments(launch: launch));
+
+              if (newFavorite is bool && newFavorite != oldFavorite) {
+                onFavoriteChanged?.call(launch, false);
+              }
+
+              },
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -26,7 +36,7 @@ class LaunchesUpcomingList extends StatelessWidget{
                     width: 100,
                     height: 100,
                     child: Image.network(
-                      launche.links?.patch?.small ?? '',
+                      launch.links?.patch?.small ?? '',
                       fit: BoxFit.cover,
                       errorBuilder: (context, child, stack) {
                         return const ImagePlaceholder();
@@ -41,7 +51,7 @@ class LaunchesUpcomingList extends StatelessWidget{
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      launche.name ?? '',
+                      launch.name ?? '',
                       style: const TextStyle(fontSize: 16),
                     ),
                     const SizedBox(
@@ -49,17 +59,16 @@ class LaunchesUpcomingList extends StatelessWidget{
                     ),
 
 
-                    Text("Date de lancement : \n${DateFormat.yMMMEd().format(launche.dateLocal!)}")
+                    Text("Date de lancement : \n${DateFormat.yMMMEd().format(launch.dateLocal!)}")
                   ],
                 ),
                 ),
                 IconButton(
-                //TODO à faire
-                  icon: const Icon(false
+                  icon: Icon(launch.isFav
                       ? Icons.favorite
                       : Icons.favorite_border),
                   onPressed: () {
-                    //onFavoriteChanged?.call(spot, true);
+                    onFavoriteChanged?.call(launch, true);
                   },
                 ),
                 const SizedBox(width: 16,)

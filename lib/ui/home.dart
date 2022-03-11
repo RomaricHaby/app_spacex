@@ -70,13 +70,14 @@ class _HomePageState extends State<HomePage> {
           },
         ),
         body: FutureBuilder(
-          future: LaunchesManger().loadLaunchesUpcoming(),
+          future: LaunchesManager().loadLaunchesUpcoming(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return PageView(
                 controller: _pageController,
                 children: const [
                   LaunchesUpcomingListPage(),
+                  LaunchesUpcomingListPage(isFromFavorite: true)
                 ],
               );
             } else {

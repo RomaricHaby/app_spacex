@@ -1,4 +1,4 @@
-import 'package:app_spacex/core/model/launches.dart';
+import 'package:app_spacex/core/model/launch.dart';
 import 'package:app_spacex/ui/home.dart';
 import 'package:app_spacex/ui/launch_detail.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class App extends StatelessWidget {
         switch (settings.name) {
           case LaunchDetail.route:
             if (arguments != null && arguments is LaunchDetailArguments) {
-              Launches launch = arguments.launch;
+              Launch launch = arguments.launch;
               return MaterialPageRoute(builder: (_) => LaunchDetail(launch));
             } else {
               throw Exception(
