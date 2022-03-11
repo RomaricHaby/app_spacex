@@ -45,7 +45,7 @@ class _SpaceXPageState extends State<SpaceXPage>  {
                                   errorBuilder: (context, child, stack) {
                                     return const ImagePlaceholder();
                                   },
-                                  )
+                                  ))],
                         ),
 
                               const SizedBox(
@@ -56,17 +56,30 @@ class _SpaceXPageState extends State<SpaceXPage>  {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.stretch,
                                   children: [
-                                    Text(
-                                      company.name ?? '',
+                                    Text(company.summary ?? "",
+                                      style: const TextStyle(fontSize: 15),
+                                    ),
+                                    const SizedBox(
+                                      height: 20,
+                                    ),
+                                    Text("Fondateur : ${company.founder}",
                                       style: const TextStyle(fontSize: 20),
                                     ),
                                     const SizedBox(
                                       height: 12,
                                     ),
+                                    Text("Nombre d'employés : ${company.employees}",
+                                      style: const TextStyle(fontSize: 20),
+                                    ),
+                                    const SizedBox(
+                                      height: 12,
+                                    ),
+                                    Text("Date de création : ${company.founded}",
+                                      style: const TextStyle(fontSize: 20),
+                                    ),
                                   ],
                                 ),
                               )
-                            ],),
                         ])
                 )
             );
