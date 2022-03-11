@@ -2,6 +2,7 @@ import 'package:app_spacex/core/manager/launches_manager.dart';
 import 'package:app_spacex/ui/launch_detail.dart';
 import 'package:app_spacex/ui/pages/launches_latest_list_page.dart';
 import 'package:app_spacex/ui/pages/launches_upcoming_list_page.dart';
+import 'package:app_spacex/ui/pages/map_page.dart';
 import 'package:app_spacex/ui/pages/space_x_page.dart';
 import 'package:flutter/material.dart';
 
@@ -44,6 +45,7 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
           items: const [
             BottomNavigationBarItem(
                 label: "Up coming launch",
@@ -57,6 +59,13 @@ class _HomePageState extends State<HomePage> {
                 icon: Icon(Icons.history_outlined),
                 activeIcon: Icon(
                   Icons.history,
+                  color: Colors.blue,
+                )),
+            BottomNavigationBarItem(
+                label: "Landpads",
+                icon: Icon(Icons.map_outlined),
+                activeIcon: Icon(
+                  Icons.map,
                   color: Colors.blue,
                 )),
             BottomNavigationBarItem(
@@ -86,8 +95,8 @@ class _HomePageState extends State<HomePage> {
                 children: const [
                   LaunchesUpcomingListPage(),
                   LaunchesLatestListPage(),
+                  MapPage(),
                   LaunchesUpcomingListPage(isFromFavorite: true)
-
                 ],
               );
             } else {
