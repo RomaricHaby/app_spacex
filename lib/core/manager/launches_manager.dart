@@ -1,12 +1,17 @@
 
 import 'package:app_spacex/core/manager/api_manager.dart';
 import 'package:app_spacex/core/manager/database_manager.dart';
+import 'package:app_spacex/core/model/company.dart';
 import 'package:flutter/material.dart';
 import 'package:app_spacex/core/model/launch.dart';
 
 class LaunchesManager{
-  List<Launch>? _launches;
-  List<Launch> get launches => _launches ?? [];
+  List<Launch>? _launchesUpcoming;
+  List<Launch> get launchesUpcoming => _launchesUpcoming ?? [];
+
+  List<Launch>? _launchesLatest;
+  List<Launch> get launchesLatest => _launchesLatest ?? [];
+
   List<Launch>? _favoriteLaunches;
   List<Launch> get favoriteLaunches => _favoriteLaunches ?? [];
 
@@ -16,10 +21,10 @@ class LaunchesManager{
 
   LaunchesManager._internal();
 
-  int get _launchListLength => _launches?.length ?? 0;
+  int get _launchListLength => _launchesUpcoming?.length ?? 0;
 
   Future<bool> initData() async {
-    await Future.wait([loadLaunchesUpcoming(), loadFavoriteLaunch()]);
+    await Future.wait([loadLaunchesUpcoming(), loadFavoriteLaunch(), loadLaunchesLatest()]);
     return true;
   }
 
@@ -28,9 +33,23 @@ class LaunchesManager{
       var response = await ApiManager().getAllUpcomingLaunches();
 
       if(response.data != null){
-        _launches = List<dynamic>.from(response.data!).map((json) => Launch.fromJson(json)).toList();
+        _launchesUpcoming = List<dynamic>.from(response.data!).map((json) => Launch.fromJson(json)).toList();
       }
-      return _launches;
+      return _launchesUpcoming;
+    } catch(e){
+      debugPrint("Erreur : $e");
+      return null;
+    }
+  }
+
+  Future<List<Launch>?> loadLaunchesLatest() async {
+    try{
+      var response = await ApiManager().getAllLatestLaunches();
+
+      if(response.data != null){
+        _launchesLatest = List<dynamic>.from(response.data!).map((json) => Launch.fromJson(json)).toList();
+      }
+      return _launchesLatest;
     } catch(e){
       debugPrint("Erreur : $e");
       return null;
@@ -60,5 +79,18 @@ class LaunchesManager{
       _favoriteLaunches ??= [];
       _favoriteLaunches?.add(launchToUpdate);
     }
+  }
+
+  Future<Company?> getInfoCompany() async {
+   Company? company;
+   try{
+     var response = await ApiManager().getCompanyInfo();
+     if (response.data != null) {
+       company = Company.fromJson(response.data ?? {});
+     }
+   } catch (error){
+     debugPrint("Erreur : $error}");
+   }
+   return company;
   }
 }

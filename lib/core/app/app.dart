@@ -1,6 +1,7 @@
 import 'package:app_spacex/core/model/launch.dart';
 import 'package:app_spacex/ui/home.dart';
 import 'package:app_spacex/ui/launch_detail.dart';
+import 'package:app_spacex/ui/pages/space_x_page.dart';
 import 'package:flutter/material.dart';
 
 
@@ -40,7 +41,13 @@ class App extends StatelessWidget {
               throw Exception(
                   "Cette route doit avoir un objet SpotDetailArgument en argument");
             }
-
+          case SpaceXPageState.route :
+            if (arguments != null && arguments is SpaceXPageArguments) {
+              return MaterialPageRoute(builder: (_) => const SpaceXPage());
+            } else {
+              throw Exception(
+                  "Cette route doit avoir un objet SpotDetailArgument en argument");
+            }
           default:
             return unknownRoute();
         }

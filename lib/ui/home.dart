@@ -1,6 +1,8 @@
 import 'package:app_spacex/core/manager/launches_manager.dart';
 import 'package:app_spacex/ui/launch_detail.dart';
+import 'package:app_spacex/ui/pages/launches_latest_list_page.dart';
 import 'package:app_spacex/ui/pages/launches_upcoming_list_page.dart';
+import 'package:app_spacex/ui/pages/space_x_page.dart';
 import 'package:flutter/material.dart';
 
 
@@ -35,6 +37,11 @@ class _HomePageState extends State<HomePage> {
           // Here we take the value from the HomePage object that was created by
           // the App.build method, and use it to set our appbar title.
           title: Text(widget.title),
+          actions: [
+            IconButton(onPressed: () async {
+              await Navigator.of(context).pushNamed(SpaceXPageState.route, arguments: SpaceXPageArguments() );
+            }, icon: const Icon(Icons.info))
+          ],
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: const [
@@ -46,19 +53,20 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.blue,
                 )),
             BottomNavigationBarItem(
+                label: "Latest launch",
+                icon: Icon(Icons.history_outlined),
+                activeIcon: Icon(
+                  Icons.history,
+                  color: Colors.blue,
+                )),
+            BottomNavigationBarItem(
                 label: "Favoris",
                 icon: Icon(Icons.favorite_border),
                 activeIcon: Icon(
                   Icons.favorite,
                   color: Colors.blue,
-                )),
-            BottomNavigationBarItem(
-                label: "SpaceX",
-                icon: Icon(Icons.house_outlined),
-                activeIcon: Icon(
-                  Icons.house,
-                  color: Colors.blue,
                 ))
+
           ],
           currentIndex: _currentIndex,
           onTap: (newIndex) {
@@ -77,7 +85,9 @@ class _HomePageState extends State<HomePage> {
                 controller: _pageController,
                 children: const [
                   LaunchesUpcomingListPage(),
+                  LaunchesLatestListPage(),
                   LaunchesUpcomingListPage(isFromFavorite: true)
+
                 ],
               );
             } else {
