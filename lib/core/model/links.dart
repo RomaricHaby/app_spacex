@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'links.g.dart';
 
-@JsonSerializable(checked: true, fieldRename: FieldRename.snake)
+@JsonSerializable(checked: true, fieldRename: FieldRename.snake, explicitToJson: true)
 class Links{
 
   Patch? patch;

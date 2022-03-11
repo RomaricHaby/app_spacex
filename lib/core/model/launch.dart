@@ -1,11 +1,11 @@
 import 'links.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-part 'launches.g.dart';
+part 'launch.g.dart';
 
 @JsonSerializable(checked: true, explicitToJson: true, fieldRename: FieldRename.snake)
 
-class Launches {
+class Launch {
 
   Links? links;
   String? rocket;
@@ -16,8 +16,10 @@ class Launches {
   DateTime? dateLocal;
   bool? upcoming;
   String? id;
+  @JsonKey(ignore: true)
+  bool isFav = false;
 
-  Launches(
+  Launch(
       {
         this.links,
         this.rocket,
@@ -30,6 +32,6 @@ class Launches {
         this.id});
 
 
-  factory Launches.fromJson(Map<String, dynamic> json) => _$LaunchesFromJson(json);
-  Map<String, dynamic> toJson() => _$LaunchesToJson(this);
+  factory Launch.fromJson(Map<String, dynamic> json) => _$LaunchFromJson(json);
+  Map<String, dynamic> toJson() => _$LaunchToJson(this);
 }

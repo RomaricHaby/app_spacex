@@ -1,10 +1,10 @@
-import 'package:app_spacex/core/model/launches.dart';
+import 'package:app_spacex/core/model/launch.dart';
 import 'package:flutter/material.dart';
 
 import 'components/image_placeholder.dart';
 
 class LaunchDetailArguments {
-  Launches launch;
+  Launch launch;
 
   LaunchDetailArguments({required this.launch});
 }
@@ -13,7 +13,7 @@ class LaunchDetailArguments {
 class LaunchDetail extends StatefulWidget {
 static const route = "/launchDetail";
 
-final Launches launch;
+final Launch launch;
 
 const LaunchDetail(this.launch, {Key? key}) : super(key: key);
 @override
@@ -60,13 +60,8 @@ class _LaunchDetail extends State<LaunchDetail> {
             )
           ],
         ),
-
-
-
       ),
     ),
-
     );
   }
-
 }

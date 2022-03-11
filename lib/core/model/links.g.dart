@@ -21,5 +21,5 @@ Links _$LinksFromJson(Map<String, dynamic> json) => $checkedCreate(
     );
 
 Map<String, dynamic> _$LinksToJson(Links instance) => <String, dynamic>{
-      'patch': instance.patch,
+      'patch': instance.patch?.toJson(),
     };
