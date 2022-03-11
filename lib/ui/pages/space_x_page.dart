@@ -6,14 +6,19 @@ import '../../core/model/company.dart';
 import '../components/image_placeholder.dart';
 
 
+class SpaceXPageArguments {
+  SpaceXPageArguments();
+}
+
 class SpaceXPage extends StatefulWidget{
   const SpaceXPage({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _SpaceXPageState();
+  State<StatefulWidget> createState() => SpaceXPageState();
 }
 
-class _SpaceXPageState extends State<SpaceXPage>  {
+class SpaceXPageState extends State<SpaceXPage>  {
+  static const route = "/spaceXDetail";
   late Company company;
 
   @override
@@ -30,6 +35,9 @@ class _SpaceXPageState extends State<SpaceXPage>  {
           if (snapshot.hasData) {
             company = snapshot.data?[0];
             return Scaffold(
+              appBar: AppBar(
+                title: const Text("SpaceX"),
+              ),
                 body: SingleChildScrollView(
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
