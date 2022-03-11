@@ -1,5 +1,6 @@
 
 import 'package:app_spacex/core/manager/api_manager.dart';
+import 'package:app_spacex/core/manager/database_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:app_spacex/core/model/launch.dart';
 
@@ -9,15 +10,18 @@ class LaunchesManager{
   List<Launch>? _favoriteLaunches;
   List<Launch> get favoriteLaunches => _favoriteLaunches ?? [];
 
-
-
   static final LaunchesManager _instance = LaunchesManager._internal();
 
   factory LaunchesManager() => _instance;
 
   LaunchesManager._internal();
 
-  //int get _spotListLength => _launches?.length ?? 0;
+  int get _launchListLength => _launches?.length ?? 0;
+
+  Future<bool> initData() async {
+    await Future.wait([loadLaunchesUpcoming(), loadFavoriteLaunch()]);
+    return true;
+  }
 
   Future<List<Launch>?> loadLaunchesUpcoming() async {
     try{
@@ -33,20 +37,28 @@ class LaunchesManager{
     }
   }
 
-  bool isLaunchesFavorite(Launch launches){
-    return launches.isFav;
+  Future<void> loadFavoriteLaunch() async {
+    _favoriteLaunches = await DatabaseManager().getFavoriteLaunch();
   }
 
-  void toggleFavorite(Launch launchToUpdate){
-    if(launchToUpdate.isFav){
-      launchToUpdate.isFav = false;
-      _favoriteLaunches?.removeWhere((Launch launch) => launch.id == launchToUpdate.id);
+  bool isLaunchFavorite(String idSpot) {
+    try {
+      return _favoriteLaunches?.firstWhere((spot) => spot.id == idSpot) != null;
+    } catch (e) {
+      // Launch not found
+      return false;
     }
-    else{
-      launchToUpdate.isFav = true;
+  }
+
+
+  Future<void> toggleFavorite(Launch launchToUpdate) async {
+    bool isFavorite = await DatabaseManager().isFavorite(launchToUpdate.id);
+    await DatabaseManager().toggleFavorite(isFavorite, launchToUpdate);
+    if (isFavorite) {
+      _favoriteLaunches?.removeWhere((Launch launch) => launch.id == launchToUpdate.id);
+    } else {
       _favoriteLaunches ??= [];
       _favoriteLaunches?.add(launchToUpdate);
     }
   }
-
 }

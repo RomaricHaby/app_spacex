@@ -19,7 +19,7 @@ class LaunchesUpcomingList extends StatelessWidget{
           Launch launch = launches[position];
           return InkWell(
             onTap: () async{
-              bool oldFavorite = launch.isFav;
+              bool oldFavorite = LaunchesManager().isLaunchFavorite(launch.id!);
 
               var newFavorite = await Navigator.of(context).pushNamed(LaunchDetail.route,
                   arguments: LaunchDetailArguments(launch: launch));
@@ -64,7 +64,7 @@ class LaunchesUpcomingList extends StatelessWidget{
                 ),
                 ),
                 IconButton(
-                  icon: Icon(launch.isFav
+                  icon: Icon(LaunchesManager().isLaunchFavorite(launch.id!)
                       ? Icons.favorite
                       : Icons.favorite_border),
                   onPressed: () {

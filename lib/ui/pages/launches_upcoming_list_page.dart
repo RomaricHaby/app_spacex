@@ -21,9 +21,9 @@ class _LaunchesUpcomingListPage extends State<LaunchesUpcomingListPage> {
         launches: widget.isFromFavorite ?
         LaunchesManager().favoriteLaunches :
         LaunchesManager().launches,
-      onFavoriteChanged:(Launch launch, bool shouldToggle) {
+      onFavoriteChanged:(Launch launch, bool shouldToggle) async{
         if (shouldToggle) {
-          LaunchesManager().toggleFavorite(launch);
+          await LaunchesManager().toggleFavorite(launch);
         }
         setState(() {});
       }

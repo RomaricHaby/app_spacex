@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
           },
         ),
         body: FutureBuilder(
-          future: LaunchesManager().loadLaunchesUpcoming(),
+          future: LaunchesManager().initData(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return PageView(

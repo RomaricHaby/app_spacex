@@ -11,7 +11,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Spot Discovery',
+      title: 'Space X',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
