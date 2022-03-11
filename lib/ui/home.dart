@@ -1,6 +1,7 @@
 import 'package:app_spacex/core/manager/launches_manager.dart';
 import 'package:app_spacex/ui/launch_detail.dart';
 import 'package:app_spacex/ui/pages/launches_upcoming_list_page.dart';
+import 'package:app_spacex/ui/pages/space_x_page.dart';
 import 'package:flutter/material.dart';
 
 
@@ -77,7 +78,8 @@ class _HomePageState extends State<HomePage> {
                 controller: _pageController,
                 children: const [
                   LaunchesUpcomingListPage(),
-                  LaunchesUpcomingListPage(isFromFavorite: true)
+                  LaunchesUpcomingListPage(isFromFavorite: true),
+                  SpaceXPage()
                 ],
               );
             } else {

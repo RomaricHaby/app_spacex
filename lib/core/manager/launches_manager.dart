@@ -1,6 +1,7 @@
 
 import 'package:app_spacex/core/manager/api_manager.dart';
 import 'package:app_spacex/core/manager/database_manager.dart';
+import 'package:app_spacex/core/model/company.dart';
 import 'package:flutter/material.dart';
 import 'package:app_spacex/core/model/launch.dart';
 
@@ -60,5 +61,18 @@ class LaunchesManager{
       _favoriteLaunches ??= [];
       _favoriteLaunches?.add(launchToUpdate);
     }
+  }
+
+  Future<Company?> getInfoCompany() async {
+   Company? company;
+   try{
+     var response = await ApiManager().getCompanyInfo();
+     if (response.data != null) {
+       company = Company.fromJson(response.data ?? {});
+     }
+   } catch (error){
+     debugPrint("Erreur : $error}");
+   }
+   return company;
   }
 }
