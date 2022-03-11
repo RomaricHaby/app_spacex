@@ -2,12 +2,19 @@
 import 'package:app_spacex/core/manager/api_manager.dart';
 import 'package:app_spacex/core/manager/database_manager.dart';
 import 'package:app_spacex/core/model/company.dart';
+
 import 'package:flutter/material.dart';
 import 'package:app_spacex/core/model/launch.dart';
+
+import '../model/landpad.dart';
+
 
 class LaunchesManager{
   List<Launch>? _launchesUpcoming;
   List<Launch> get launchesUpcoming => _launchesUpcoming ?? [];
+
+  List<Landpad>? _landpad;
+  List<Landpad> get landpad => _landpad ?? [];
 
   List<Launch>? _launchesLatest;
   List<Launch> get launchesLatest => _launchesLatest ?? [];
@@ -24,7 +31,7 @@ class LaunchesManager{
   int get _launchListLength => _launchesUpcoming?.length ?? 0;
 
   Future<bool> initData() async {
-    await Future.wait([loadLaunchesUpcoming(), loadFavoriteLaunch(), loadLaunchesLatest()]);
+    await Future.wait([loadLaunchesUpcoming(), loadFavoriteLaunch(), loadLaunchesLatest(), loadLandpads()]);
     return true;
   }
 
@@ -46,6 +53,18 @@ class LaunchesManager{
 
       if(response.data != null){
         _launchesLatest = List<dynamic>.from(response.data!).map((json) => Launch.fromJson(json)).toList().reversed.toList();
+      }
+    } catch(e){
+      debugPrint("Erreur : $e");
+    }
+  }
+
+  Future<void> loadLandpads() async {
+    try{
+      var response = await ApiManager().getAllLandpads();
+
+      if(response.data != null){
+        _landpad = List<dynamic>.from(response.data!).map((json) => Landpad.fromJson(json)).toList();
       }
     } catch(e){
       debugPrint("Erreur : $e");
