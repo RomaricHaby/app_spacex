@@ -28,31 +28,27 @@ class LaunchesManager{
     return true;
   }
 
-  Future<List<Launch>?> loadLaunchesUpcoming() async {
+  Future<void> loadLaunchesUpcoming() async {
     try{
       var response = await ApiManager().getAllUpcomingLaunches();
 
       if(response.data != null){
         _launchesUpcoming = List<dynamic>.from(response.data!).map((json) => Launch.fromJson(json)).toList();
       }
-      return _launchesUpcoming;
     } catch(e){
       debugPrint("Erreur : $e");
-      return null;
     }
   }
 
-  Future<List<Launch>?> loadLaunchesLatest() async {
+  Future<void> loadLaunchesLatest() async {
     try{
       var response = await ApiManager().getAllLatestLaunches();
 
       if(response.data != null){
-        _launchesLatest = List<dynamic>.from(response.data!).map((json) => Launch.fromJson(json)).toList();
+        _launchesLatest = List<dynamic>.from(response.data!).map((json) => Launch.fromJson(json)).toList().reversed.toList();
       }
-      return _launchesLatest;
     } catch(e){
       debugPrint("Erreur : $e");
-      return null;
     }
   }
 
