@@ -91,6 +91,7 @@ class _HomePageState extends State<HomePage> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return PageView(
+                physics: const NeverScrollableScrollPhysics(),
                 controller: _pageController,
                 children: const [
                   LaunchesUpcomingListPage(),
@@ -103,7 +104,8 @@ class _HomePageState extends State<HomePage> {
               return const Center(child: CircularProgressIndicator(),);
             }
           },
-        ));
+        )
+    );
   }
 
 }

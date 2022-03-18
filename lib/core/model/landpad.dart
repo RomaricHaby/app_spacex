@@ -16,10 +16,10 @@ class Landpad{
   String? region;
   double? longitude;
   double? latitude;
-  String? landing_attempts;
-  String? landing_successes;
+  int? landing_attempts;
+  int? landing_successes;
   String? details;
-  String? id;
+  String id;
 
   Landpad(
       {
@@ -32,7 +32,7 @@ class Landpad{
         this.landing_successes,
         this.landing_attempts,
         this.details,
-        this.id
+        required this.id
       });
 
   factory Landpad.fromJson(Map<String, dynamic> json) => _$LandpadFromJson(json);

@@ -19,11 +19,11 @@ Landpad _$LandpadFromJson(Map<String, dynamic> json) => $checkedCreate(
               $checkedConvert('longitude', (v) => (v as num?)?.toDouble()),
           latitude: $checkedConvert('latitude', (v) => (v as num?)?.toDouble()),
           landing_successes:
-              $checkedConvert('landing_successes', (v) => v as String?),
+              $checkedConvert('landing_successes', (v) => v as int?),
           landing_attempts:
-              $checkedConvert('landing_attempts', (v) => v as String?),
+              $checkedConvert('landing_attempts', (v) => v as int?),
           details: $checkedConvert('details', (v) => v as String?),
-          id: $checkedConvert('id', (v) => v as String?),
+          id: $checkedConvert('id', (v) => v as String),
         );
         return val;
       },
