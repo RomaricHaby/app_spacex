@@ -57,7 +57,42 @@ class _LaunchDetail extends State<LaunchDetail> {
                   )
                   ),
                 )],
-            )
+            ),
+
+            const SizedBox(
+              height: 10,
+            ),
+
+       Center(
+
+              child: Row(children: [
+                  const Icon(
+                    Icons.rocket,
+                    color: Colors.blueAccent,
+                    size: 24.0,
+                    semanticLabel: 'Text to announce in accessibility modes',
+                  ),
+                  Text(" ${widget.launch.rocket}", style: const TextStyle(fontSize: 10 ))
+                ],)
+      ),
+
+            const SizedBox(
+              height: 15,
+            ),
+
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Description",
+              style: TextStyle(fontSize: 20),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(widget.launch.details ?? "Pas de description")
+          ],
+        ),
           ],
         ),
       ),

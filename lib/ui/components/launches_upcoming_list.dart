@@ -2,6 +2,7 @@ import 'package:app_spacex/core/manager/launches_manager.dart';
 import 'package:app_spacex/core/model/launch.dart';
 import 'package:app_spacex/ui/launch_detail.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:intl/intl.dart';
 
 import 'image_placeholder.dart';
@@ -17,6 +18,7 @@ class LaunchesUpcomingList extends StatelessWidget{
     return launches.isNotEmpty ? ListView.builder(
         itemBuilder: (context, position) {
           Launch launch = launches[position];
+
           return InkWell(
             onTap: () async{
               bool oldFavorite = LaunchesManager().isLaunchFavorite(launch.id!);
@@ -32,6 +34,7 @@ class LaunchesUpcomingList extends StatelessWidget{
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+
                 SizedBox(
                     width: 100,
                     height: 100,
